@@ -5,6 +5,7 @@ moviesApp.controller("SearchController", ["$scope", "$http", function($scope, $h
   $scope.movies = {};
   $scope.searchTerm = window.localStorage.searchTerm || "";
   $scope.loading = false;
+  
   try {
     $scope.searchTerms = JSON.parse(window.localStorage.searchTerms) || ["matrix", "seattle", "bomb"];
   } catch(e) {
