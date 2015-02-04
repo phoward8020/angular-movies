@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+
+  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.11/angular.min.js"></script>
+  <script type="text/javascript" src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+
+</head>
+<body ng-app="MoviesApp">
+  <div class="container" ng-controller="SearchController">
+    <div class="row">
+      <div class="col-xs-12">
+        <h1>Angular Movies App <small>{{searchTerm}}</small></h1>
+        <form class="form" ng-submit="search()">
+          <div class="form-group" ng-class="{'has-error': movies.Error}">
+            <!-- <input type="text" class="form-control" ng-model="searchTerm" ng-change="search()" ng-model-options="{debouce: 300}"> -->
+            <input type="text" class="form-control" ng-model="searchTerm" typeahead="term for term in searchTerms | filter:$viewValue | limitTo:8">
+          </div>
+            <div class="btn-group">
+              <label class="btn btn-success" ng-change="search()" ng-model="searchType" btn-radio="'movie'" uncheckable>Movie</label>
+              <label class="btn btn-success" ng-change="search()" ng-model="searchType" btn-radio="'series'" uncheckable>Series</label>
+              <label class="btn btn-success" ng-change="search()" ng-model="searchType" btn-radio="'episode'" uncheckable>Episode</label>
+            </div>
+            <input type="submit" class="btn btn-primary" name="Search">
+            <label class="control-label">{{movies.Error}}</label>
+        </form>
+        <hr>
+        <p ng-show="loading">Loading...</p>
+        <table class="table table-striped table-hover" ng-show="movies.Search" ng-hide="loading">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Year</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="movie in movies.Search">
+              <td>{{movie.Title}}</td>
+              <td>{{movie.Year}}</td>
+              <td><span class="label label-default">{{movie.Type}}</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- {{movies}} -->
+      </div>
+    </div>
+  </div>
+</body>
+</html>
